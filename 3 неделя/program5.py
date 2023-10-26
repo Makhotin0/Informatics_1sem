@@ -7,7 +7,6 @@ B = []
 for i in range(N):
     A = [0 for j in range(M)]
     B.append(A)
-print(*B, sep = '\n')
 
 count = 0
 i, j, k = 0, -1, 1

@@ -22,7 +22,7 @@ print(b)
 Dx = x_mean1 - x_mean**2
 Dy = y_mean1 - y_mean**2
 
-Sk = (1/(len(tx)-2)*(Dx/Dy - a**2))**2
+Sk = (1/(len(tx)-2)*(Dy/Dx - a**2))**0.5
 Sb = Sk * (x_mean1)**0.5
 
 print(Sk)
