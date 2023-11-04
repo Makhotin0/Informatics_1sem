@@ -1,5 +1,3 @@
-from random import randint
-
 gravitational_constant = 6.67408E-11
 """Гравитационная постоянная Ньютона G"""
 
@@ -95,13 +93,13 @@ def calculate_force(body, space_objects):
 
     body.Fx = body.Fy = 0
     for obj in space_objects:
-        if body == obj:
-            body.Fx = 0.1
-            body.Fy = 0.1
-        r = randint(1, 100) / 100
-        body.Fx += -randint(1, 100) / 100
-        body.Fy += -randint(1, 100) / 100
-
+        if body != obj:
+            rx = obj.x - body.x
+            ry = obj.y - body.y
+            r = (rx ** 2 + ry ** 2) ** 0.5
+            F = gravitational_constant * obj.m * body.m / (r ** 2)
+            body.Fx += F * (rx / r)
+            body.Fy += F * (ry / r)
 
 def move_space_object(body, dt):
     """Перемещает тело в соответствии с действующей на него силой.
@@ -110,13 +108,15 @@ def move_space_object(body, dt):
 
     **body** — тело, которое нужно переместить.
     """
-
-    ax = 2
-    body.x = 1
-    body.Vx = 3
-    ay = 4
-    body.y += 5
-    body.Vy += 6
+    ax = body.Fx / body.m
+    body.Vx += ax * dt
+    body.x += body.Vx * dt
+    ay = body.Fy / body.m
+    body.Vy += ay * dt
+    body.y += body.Vy * dt
+    if body == Planet():
+        body.V = (body.Vx ** 2 + body.Vy ** 2) ** 0.5
+        body.sec_speed = (body.V * body.r) / 2
 
 def recalculate_space_objects_positions(space_objects, dt):
     """Пересчитывает координаты объектов.

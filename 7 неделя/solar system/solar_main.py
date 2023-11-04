@@ -1,6 +1,5 @@
 import tkinter
 from tkinter.filedialog import *
-# раскомментируйте три строки ниже
 from solar_visuals import *
 from solar_physics import *
 from solar_read import *
@@ -51,9 +50,6 @@ def start_execution():
     perform_execution = True
     start_button['text'] = "Pause"
     start_button['command'] = stop_execution
-
-    #from record import start
-    #start(space, 100, __file__)
 
     execution()
     print('Started execution...')
@@ -113,7 +109,6 @@ def main():
     global time_speed
     global space
     global start_button
-
     print('Modelling started!')
     physical_time = 0
 
@@ -149,6 +144,7 @@ def main():
 
     root.mainloop()
     print('Modelling finished!')
+
 
 if __name__ == "__main__":
     main()

@@ -26,8 +26,7 @@ class Ball():
         self.vx = 0
         self.vy = 0
         self.color = choice(['blue', 'green', 'red', 'brown'])
-        self.id = canv.create_oval(self.x - self.r, self.y - self.r, self.x + self.r, self.y + self.r, fill=self.color)
-        self.live = 30
+        self.id = canv.create_oval(self.x - self.r, self.y - self.r, self.x + self.r, self.y + self.r, fill = self.color)
 
     def set_coords(self):
         '''
@@ -43,17 +42,26 @@ class Ball():
         """
         # TODO
         self.vy -= 1
+        self.vy = 0.99 * self.vy
+        self.vx = 0.99 * self.vx
         self.x += self.vx
         self.y -= self.vy
         self.set_coords()
-        if self.x > 800:
+        if self.x > 790:
             self.vx = -self.vx
-        if self.y > 600:
-            self.vy = -self.vy
-        if self.x < 0:
-            self.vx = -self.vx
-        if self.y < 0:
-            self.vy = -self.vy
+        if self.y > 550:
+            self.vy = - 0.8 * self.vy
+            self.vx = 0.8 * self.vx
+            self.y = 550
+        if self.y > 551:
+            self.vy += 1
+        if self.vx < 0.45 and self.vy < 0.45 and self.y >= 550:
+            self.r = 0
+            self.x = 0
+            self.y = 0
+            self.set_coords()
+            balls.remove(self)
+
 
     def hittest(self, ob):
         """ Функция проверяет сталкивалкивается ли данный обьект с целью, описываемой в обьекте ob.
@@ -141,7 +149,7 @@ class target():
         canv.coords(self.id, -10, -10, -10, -10)
         self.points += points
         canv.itemconfig(self.id_points, text=self.points)
-        # self.new_target()
+        self.new_target()
 
 
 t1 = target()
@@ -150,12 +158,10 @@ g1 = gun()
 bullet = 0
 balls = []
 
-
 def new_game(event=''):
     global gun, t1, screen1, balls, bullet
     t1.new_target()
     bullet = 0
-    balls = []
     canv.bind('<Button-1>', g1.fire2_start)
     canv.bind('<ButtonRelease-1>', g1.fire2_end)
     canv.bind('<Motion>', g1.targetting)
@@ -175,6 +181,12 @@ def new_game(event=''):
                 canv.itemconfig(screen1, text='Вы уничтожили цель за ' + str(bullet) + ' выстрелов')
 
                 canv.delete(t1)
+                b.r = 0
+                b.x = 0
+                b.y = 0
+                b.set_coords()
+                balls.remove(b)
+                new_game()
         canv.update()
         time.sleep(0.03)
         g1.targetting()
@@ -183,7 +195,6 @@ def new_game(event=''):
     canv.itemconfig(screen1, text='')
     canv.delete(gun)
     root.after(1, new_game)
-
 
 new_game()
 
