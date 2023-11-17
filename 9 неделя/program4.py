@@ -1,11 +1,14 @@
-class Box():
-  def __init__ (self,cat = None):
-    self.cat = cat
-    self.nextcat = None
-
 class LinkedList():
   def __init__(self):
     self.head = None
+
+  class Box():
+    cat = None
+    nextcat = None
+    def __init__(self, cat, nextcat = None):
+      self.cat = cat
+      self.nextcat = nextcat
+
   def length(self):
     len = 0
     lastbox = self.head
@@ -24,7 +27,7 @@ class LinkedList():
     return False
 
   def addToEnd(self, newcat):
-    newbox = Box(newcat)
+    newbox = self.Box(newcat)
     if self.head is None:
       self.head = newbox
       return
@@ -32,6 +35,17 @@ class LinkedList():
     while (lastbox.nextcat):
       lastbox = lastbox.nextcat
     lastbox.nextcat = newbox
+
+  def addToPosition(self, cat, index):
+    i = 0
+    node = self.head
+    prev_node = self.head
+    while i < index:
+      prev_node = node
+      node = node.nextcat
+      i += 1
+    prev_node.nextcat = self.Box(cat, nextcat = node)
+    return cat
 
   def get(self, catIndex):
     lastbox = self.head
@@ -44,7 +58,6 @@ class LinkedList():
           return lastbox.cat
         boxIndex = boxIndex + 1
         lastbox = lastbox.nextcat
-
 
   def removeBox(self, rmcat):
     headcat = self.head
@@ -72,3 +85,15 @@ for i in range (len(P_list)):
   List.addToEnd(P_list[i])
 
 print(List.get(6))
+print(List.length())
+print(List.contains('5'))
+List.addToEnd('10')
+print(List.get(3))
+List.removeBox(3)
+
+List.addToPosition('11', 4)
+print(List.length())
+final = []
+for i in range(List.length()):
+  final.append(List.get(i))
+print(final)
