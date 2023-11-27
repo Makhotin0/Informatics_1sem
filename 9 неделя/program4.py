@@ -5,9 +5,11 @@ class LinkedList():
   class Box():
     cat = None
     nextcat = None
-    def __init__(self, cat, nextcat = None):
+    prevcat = None
+    def __init__(self, cat, nextcat = None, prevcat = None):
       self.cat = cat
       self.nextcat = nextcat
+      self.prevcat = prevcat
 
   def length(self):
     len = 0
