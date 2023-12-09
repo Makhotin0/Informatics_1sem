@@ -12,8 +12,9 @@ g = open('output.txt', 'w')
 
 nums = list(map(int, A[0].split()))
 c = int(A[2])
-nums_dec = []j in range(len(num_str)): #каждое число переводим в десятичную
-        num_dec += int(num_str[-(j + 1)]) * c ** j
+nums_dec = []
+for j in range(len(num_str)): #каждое число переводим в десятичную
+    num_dec += int(num_str[-(j + 1)]) * c ** j
     nums_dec.append(num_dec) #записываем
 S = nums_dec
 print(S)
