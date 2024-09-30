@@ -3,7 +3,7 @@
 #include<string>
 using namespace std; 
 
-int main() { // Русские символы string не учитывает :(
+int main() { // Русские символы string не учитывает ;(
     string a, b;
     std::cin >> a;
     std::cin >> b;
